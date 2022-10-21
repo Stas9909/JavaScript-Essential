@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 03</title>
+</head>
+
+<!-- <button id="loadButton">Загрузить изображения</button>  -->
+
+<!-- <button>button</button> -->
+<div id="todoList"></div>
+
+<body>
+    <script>
+
+        let div = document.querySelector("#todoList");
+        let url = "https://jsonplaceholder.typicode.com/photos/";
+
+
+        window.onload = function () {
+            fetch(url)
+                .then(response => response.json())
+                .then(json => renderList(json))
+        };
+
+        function renderList(list) {//массив объектов, получ после запроса, кот записывается как ответ в json
+            let div = document.querySelector("#todoList");
+            list.forEach(element => {
+                let img = document.createElement("img");
+                img.src += element.thumbnailUrl;
+                div.append(img);
+                console.log(div)
+            });
+        }
+
+
+
+        /*
+        Задание:
+        Напишите сценарий, который при загрузке страницы выполнит GET запрос на https://jsonplaceholder.typicode.com/photos
+        и выведет на странице все изображения в виде <img>, которые будут получены в ответе.
+        */
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+

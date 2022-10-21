@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 03</title>
+</head>
+
+<body>
+    <button class="button">Кнопка 1</button>
+    <button class="button">Кнопка 2</button>
+    <button class="button">Кнопка 3</button><br/><br/>
+
+<div>
+    <button>Кнопка 4</button>
+    <button>Кнопка 5</button>
+    <button>Кнопка 6</button>
+</div>
+
+    <script>
+        /*
+Задание:
+Перепишите сценарий таким образом, чтобы в коде устанавливался один обработчик для всех трех 
+кнопок, при этом результат работы сценария не должен измениться.
+        */
+        let buttons = document.querySelectorAll(".button");
+        buttons.forEach(btn => {
+            btn.addEventListener("click", clickHandler);
+        });
+
+        function clickHandler(e) {
+            alert(e.target.innerText);
+        }
+
+        let div=document.querySelector("div").addEventListener("click", function(e){
+            clickHandler(e)
+            // alert(e.target.innerText);
+        });
+
+    </script>
+</body>
+
+</html>

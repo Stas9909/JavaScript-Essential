@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 05</title>
+</head>
+
+<body>
+    <div data-bind="firstName"></div>
+    <div data-bind="lastName"></div>
+    <div data-bind="age"></div>
+
+    <script>
+        
+        /*
+        Задание:
+        Напишите сценарий, который свойства объекта user выведет в элементы на странице, которые
+        помечены атрибутами data-bind. При этом значение атрибута это имя св-ва, значение которое
+        должно отобразится в элементе. Напр, в <div data-bind="firstName"></div> должно отобраз.
+        значение свойства firstName объекта user. Попробуйте написать универсальную функцию, 
+        которая сможет выводить любой объект с любыми свойствами в разметку в соответств эл-ты, 
+        помеченные атрибутом. Для обхода свойств объекта, можно использовать цикл for in
+        */
+        let user = {
+            firstName: "Jhon",
+            lastName: "Doe",
+            age: "25",
+        };
+     
+        // let divs = document.querySelectorAll('div');    
+        //     for (let i = 0; i < divs.length; i++) {
+        //         const currentKey = divs[i].dataset.bind;
+        //         let key = user[currentKey];
+        //         let text = divs[i].dataset.textContent;
+        //         text = key;
+        //         divs[i].innerText = text;
+        //     };
+        function elementsSubstitution(obj) {
+            let dataBind = document.querySelectorAll("div");
+            for (const divIndex of dataBind) {
+                for (let key in obj) {
+                    if (divIndex.getAttribute("data-bind") === key) {
+                        divIndex.innerHTML = obj[key];
+                        console.log(divIndex.getAttribute("data-bind"))
+                        console.log(key)
+                        console.log(divIndex.innerHTML)
+                        console.log(obj[key])
+                        // console.log(dataBind[divIndex])
+                    }
+                }
+            }
+        }       
+        elementsSubstitution(user);
+
+
+                // if (div.getAttribute("data-bind") === 'firstName') {
+                //     div.innerHTML = obj.firstName;
+                // }
+                // if (div.getAttribute("data-bind") === 'lastName') {
+                //     div.innerHTML = obj.lastName;
+                // }
+                // if (div.getAttribute("data-bind") === 'age') {
+                //     div.innerHTML = obj.age;
+                // }
+                // for (const data in user) {
+                // // console.log(div.dataset.bind)
+                // if (dataBind.hasAttribute("data-bind='firstName'") == true) {                    
+                //         dataBind.append(data)
+                //     }
+                // }
+        //     }
+        // }
+        
+        // elementsSubstitution(user);
+
+    </script>
+</body>
+
+</html>

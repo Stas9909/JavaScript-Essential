@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 04</title>
+    <style>
+        table, tr, td {
+            border: 1px solid black
+        }
+        tr, td {
+            padding: 5px
+        }
+    </style>
+</head>
+
+<body>
+    <table id="renderIn"></table>
+    <script>
+
+    let table=document.querySelector("#renderIn");
+    let url="https://jsonplaceholder.typicode.com/todos";
+
+    window.onload=function(){
+        fetch(url)
+            .then(response=>response.json())
+            .then(json=>renderList(json))
+    };
+
+    function renderList(list){
+        for (let element of list){
+            let tr = document.createElement("tr");
+            tr.insertAdjacentHTML("beforeend", `<td><br>userId: ${element.userId}</td>`);
+            tr.insertAdjacentHTML("beforeend", `<td><br>id: ${element.id}</td>`);
+            tr.insertAdjacentHTML("beforeend", `<td><br>title: ${element.title}</td>`);
+            tr.insertAdjacentHTML("beforeend", `<td><br>completed: ${element.completed}</td>`);
+            table.append(tr)
+            console.log(table)
+            // table.style.border = "1px solid black"
+        }
+    }
+/*
+Задание:
+Напишите сценарий, который выполняет GET запрос по адресу https://jsonplaceholder.typicode.com/todos
+И выводит содержимое ответа в виде таблицы.
+*/
+    </script>
+</body>
+
+</html>

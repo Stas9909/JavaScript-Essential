@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 02</title>
+    <style>
+        textarea{
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <textarea id="area" rows="10" cols="30"></textarea>
+    <input id="saveButton" type="button" value="Сохранить" />        
+
+    
+    <script>
+        // let textarea = document.querySelector('textarea')
+        area.addEventListener("input", ()=>{
+            localStorage.setItem('key', area.value)          
+        });
+        area.value=localStorage.getItem('key');
+        /*
+Задание:
+Сделайте так чтобы значение, введенное в поле ввода на данной странице, сохранялось при 
+каждом изменении.
+Когда пользователь повторно зайдет на эту страницу, поле ввода должно содержать последнее
+введенное значение.
+        */
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 05</title>
+    <style>
+        .input{
+            width: 400px;
+            /* position: relative;  */
+            padding: 2px;
+            margin: 2px;
+        }
+        .input #guess-number-input{
+            width: 75%;
+            height: 25px;
+        }
+        .input button{
+            height: 30px;
+            width: 20%;
+            /* position: absolute; */
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="input">
+        <input type="text" placeholder="Введите число от 0 до 100" id="guess-number-input">
+        <button id="check-number-input">Button</button>
+    </div>
+    <script>
+        let input=document.querySelector("input");
+        let button=document.querySelector("button");
+
+        let randomValue = Math.floor(Math.random() * 101);
+        let count=0;
+
+        button.addEventListener("click", function(){
+        while(true){
+            count++;
+            if(!isNaN(input.value)){
+                if(input.value<randomValue){
+                    alert(`Я загадал число больше, чем ${input.value}`)
+                    return;
+                }
+                if(input.value>randomValue){
+                    alert(`Я загадал число меньше, чем ${input.value}`)
+                return;
+                }
+                else{
+                    alert(`Правильно. Загаданное число ${input.value}. Вы угадали с ${count} попытки`)
+                    break;
+                }
+            }
+            else{
+                alert("Введите числовое значение")
+                return;
+            }
+       
+        }
+        })
+/*
+Задание:
+Напишите сценарии "Игра 'Угадай число'". Суть игры - угадать за меньшее кол-во попыток число, кот загадал сценарий.
+Каждый раз, когда игрок пытается угадать число, сценарий выводит подсказку - меньшее или большее число было загадано
+сценарием. Сценарий загадывает число только один раз в начале игры и это число не меняется до завершения игры.
+При завершении игры выведите пользователю инфу о том, с какой попытки угадано значение и сколько было потрачено 
+на это времени.
+
+Для генерации случайного числа используйте следующий код:
+let randomValue = Math.floor(Math.random() * 101); // случайное значение от 0 до 100 будет записано в переменную 
+randomValue
+        
+        Пример игры:
+        Сценарий: я загадал случайное значение от 0 до 100
+        Пользователь: 50
+        Сценарий: я загадал значение больше, чем 50
+        Пользователь: 75
+        Сценарий: я загадал значение меньше, чем 75
+        Пользователь: 62
+        Сценарий: я загадал значение меньше, чем 62
+        Пользователь: 56
+        Сценарий: Правильно! Загаданное значение 56. Вы угадали с 4й попытки за 10 сек.
+        */
+    </script>
+</body>
+
+</html>

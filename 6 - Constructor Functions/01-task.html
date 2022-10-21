@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 01</title>
+</head>
+
+<body>
+    <script>
+        /*
+Задание:
+Выполните рефакторинг кода. Сделайте так, чтобы объекты создавались не через литералы, а через функцию конструктор.
+        */
+
+        function CreateObj() {
+            this.firstName='Ivan';
+            this.lastName='Ivanov';
+        }        
+        let show1=new CreateObj() 
+        console.log(show1.firstName+" "+show1.lastName);
+
+        
+
+        function CreateObj2(firstName, lastName){
+            this.firstName=firstName;
+            this.lastName=lastName;
+        }        
+        let show2=new CreateObj2("Olga","Petrova")
+        console.log(show2.firstName+" "+show2.lastName);
+
+
+
+        function CreateObj3(firstName, lastName){
+            return{
+            firstName: firstName,
+            lastName: lastName,
+            }
+        }        
+        let show3=CreateObj3("Olga","Petrova")
+        console.log(show3.firstName+" "+show3.lastName);
+
+
+        
+        function CreateObj4(firstName, lastName){
+            return{
+            firstName: firstName,
+            lastName: lastName,
+
+            show4: function(){
+                console.log(this.firstName+" "+this.lastName);
+            }
+            }
+        }        
+        let user=CreateObj4("Olga","Petrova")
+        user.show4()
+            
+        
+
+
+    </script>
+</body>
+
+</html>
+
+
+<!-- let user1 = {
+    firstName: "Ivan",
+    lastName: "Ivanov",
+    
+    show: function () {
+        console.log(this.firstName + " " + this.lastName);
+    }
+}
+
+let user2 = {
+    firstName: "Olga",
+    lastName: "Petrova",
+    
+    show: function () {
+        console.log(this.firstName + " " + this.lastName);
+    }
+}
+
+user1.show();
+user2.show(); -->

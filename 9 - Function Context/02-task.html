@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 02</title>
+</head>
+
+<body>
+    <script>
+        let array = [1, 5, 15, 20, 25];
+        let i = -1
+
+        function showWithDelay() {
+            i++
+            if (i < array.length) {
+                console.log(array[i]);
+            }
+        }
+        setInterval(showWithDelay, 1000)
+
+        let j = -1
+        function showWithDelay1() {
+            j++
+            console.log(array[j]);
+        }
+        setTimeout(showWithDelay1, 500)
+        setTimeout(showWithDelay1, 1000)
+        setTimeout(showWithDelay1, 1500)
+        setTimeout(showWithDelay1, 2000)
+        setTimeout(showWithDelay1, 2500)
+
+        /*
+        Задание:
+        Создайте функцию showWithDelay(массив);
+        Метод принимает массив и на консоль по очереди выводит каждый эл-т массива с интервалом в 1 сек.
+        Сделайте два варианта с setInterval и setTimeout
+        */
+    </script>
+</body>
+
+</html>
+
+
+
+
+<!-- for (let i = 0; i < array.length; i++) {
+    function showWithDelay1() {
+        console.log(array[i]);
+    }
+    setTimeout(showWithDelay1, 500)
+} -->

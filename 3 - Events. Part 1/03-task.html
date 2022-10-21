@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 03</title>
+
+    <style>
+        .error {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    Операнд 1: <input id="input1" type="text"> <br />
+    <span id="input1Error" class="error">Введите значение</span> <br />
+    
+    Операнд 2: <input id="input2" type="text"> <br />
+    <span id="input2Error" class="error">Введите значение</span> <br />
+
+    <button id="add-btn">+</button>
+    <button id="rem-btn">-</button>
+    <button id="mul-btn">*</button>
+    <button id="div-btn">/</button>
+    <button id="reset-btn">reset</button>
+
+    <script>
+        /*
+Задание:
+Внесите правки в данный сценарий.
+Добавьте обработчик на клик по кнопке reset. При клике значения, введённые в поля 
+ввода "Операнд 1" и "Операнд 2", должны быть заменены на значения 0.
+Добавьте проверку перед выполнением любой арифметической операции. Если поле ввода
+пустое, сделайте для этого поля ввода красную рамку и сделайте видимый элемент с 
+ошибкой под этим полем ввода. Для поля ввода input1 при отсутствии знач сделайте
+видимым span #input1Error для поля ввода input2 сделайте, в случае ошибки, 
+#input2Error видимым.
+        */
+        let input1 = document.querySelector("#input1");
+        let input2 = document.querySelector("#input2");
+
+        let addBtn = document.querySelector("#add-btn");
+        let remBtn = document.querySelector("#rem-btn");
+        let mulBtn = document.querySelector("#mul-btn");
+        let divBtn = document.querySelector("#div-btn");
+
+        let reset = document.querySelector('#reset-btn');
+
+        let spanError1 = document.querySelector('#input1Error');
+        let spanError2 = document.querySelector('#input2Error');
+        // let generalClassForSpans = document.querySelector('#error');
+
+        addBtn.addEventListener("click", function () {
+            if(!input1.value){
+                input1.style.border="1px solid red";
+                spanError1.style.display='block';
+            }
+            else if(!input2.value){
+                input2.style.border="1px solid red";
+                spanError2.style.display='block';
+            }
+            alert(Number(input1.value) + Number(input2.value));
+        });
+
+        remBtn.addEventListener("click", function () {
+            if(!input1.value){
+                input1.style.border="1px solid red";
+                spanError1.style.display='block';
+            }
+            else if(!input2.value){
+                input2.style.border="1px solid red";
+                spanError2.style.display='block';
+            }
+            alert(input1.value - input2.value);
+        });
+
+        mulBtn.addEventListener("click", function () {
+            if(!input1.value){
+                input1.style.border="1px solid red";
+                spanError1.style.display='block';
+            }
+            else if(!input2.value){
+                input2.style.border="1px solid red";
+                spanError2.style.display='block';
+            }
+            alert(input1.value * input2.value);
+        });
+
+        divBtn.addEventListener("click", function () {
+            if(!input1.value){
+                input1.style.border="1px solid red";
+                spanError1.style.display='block';
+            }
+            else if(!input2.value){
+                input2.style.border="1px solid red";
+                spanError2.style.display='block';
+            }
+            alert(input1.value / input2.value);
+        });
+
+        reset.addEventListener("click", function(){
+            input1.value=0;
+            input2.value=0;
+            input1.style.border="1px solid black";
+            spanError1.style.display='none';
+            input2.style.border="1px solid black";
+            spanError2.style.display='none';
+            
+        });
+    </script>
+</body>
+
+</html>

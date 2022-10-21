@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 03</title>
+
+    <style>
+        div {
+            background-color: lightblue;
+            padding: 8px;
+            margin: 4px;
+            display: inline-block;
+        }
+
+        .busy-day {
+            color: darkred;
+            background-color: coral;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+/*
+Задание:
+Приложение создает для каждого дня недели div и поменяет какие дни недели явл занятыми.
+
+Создайте div под каждый эл-т массива days, значения эл-в массива должны быть добавлены 
+как текст в div. Если текст созданного div находится в массиве busyDays добавьте для 
+такого div дополнит класс .busy-day/. Разместите все созданные в конец тела документа.
+*/
+
+        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        let busyDays = ["Monday", "Thursday", "Friday"];
+
+        
+
+        // for(let item of days){
+        //     let divElement=document.createElement("div")
+        //     document.body.append(divElement);
+        //     divElement.append(item);
+        //     divElement.style.display="block";
+        //     divElement.style.width='80px';
+        //     divElement.style.textAlign="center";
+        // }
+
+        for(let i=0; i<days.length; i++){
+            const element=days[i];
+            // document.body.insertAdjacentHTML('beforeend', `<div>${element}<div>`)
+            let divElement=document.createElement("div")
+            document.body.append(divElement);
+            divElement.append(element);
+            divElement.style.display="block";
+            divElement.style.width='80px';
+            divElement.style.textAlign="center";
+            for(j=0; j<busyDays.length; j++){
+                const element2=busyDays[j];
+                if(element==element2){
+                    divElement.className +=" busy-day";
+                }
+            }
+        }
+
+        // days.forEach(item=>{
+        //     document.body.append(divElement);
+        //     divElement.append(item)
+        // }) 
+
+
+    </script>
+</body>
+
+</html>

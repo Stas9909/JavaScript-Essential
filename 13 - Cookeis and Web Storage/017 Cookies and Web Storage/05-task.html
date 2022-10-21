@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 05</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .task-list {
+            width: 500px;
+        }
+
+        #start-message {
+            margin: 10px;
+        }
+
+        .task {
+            display: flex;
+            /* flex-direction: row; */
+            align-items: center;
+            border: 1px solid gray;
+            padding: 3px 8px;
+            margin: 2px 10px;
+        }
+
+        .task p {
+            margin-left: 4px;
+        }
+
+        .task button{
+            padding: 4px;
+            width: 15%;
+        }
+
+        
+        .completed {
+            background-color: green;
+            color: white;
+        }
+
+        .completed p {
+            text-decoration: line-through;
+        }
+
+        .input-panel {
+            width: 500px;
+            margin: 8px;
+            padding: 2px;
+        }
+
+        .input-panel button {
+            padding: 4px;
+            width: 25%;
+        }
+
+        .input-panel input {
+            height: 23px;
+            padding-left: 4px;
+            width: 68%;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="input-panel">
+        <input type="text" id="task-name-input">
+        <button id="add-task-btn">Добавить задачу</button>
+    </div>
+    <div class="input-panel">
+        <button id="show-all-btn">Все</button>
+        <button id="show-not-completed-btn">Не завершенные</button>
+    </div>
+    <div class="task-list">
+        <p id="start-message">Нет новых задач</p>
+    </div>
+
+    <script>
+
+        /*
+Задача, добавьте возможность удалять отдельные задачи в списке. Изменения должны сохраняться
+в localStorage
+        */
+
+        class Task {
+            constructor(text) {
+                this.text = text;//По text мы находим наш индекс в массиве объектов
+                this.isDone = false;
+            }
+        }
+
+        let dataService = {
+            tasks: [],
+
+            get allTasks() {
+                return this.tasks;
+            },
+
+            get notCompletedTasks() {
+                return this.tasks.filter(task => task.isDone == false);
+            },
+
+            add(task) {
+                this.tasks.push(task);
+                this.save();
+            },
+
+            save() {
+                // console.log('save');
+//Обратились к массиву, чтобы узнать Type (=text) и по нему искать индекс findIndex
+                console.log(this.tasks);
+                localStorage.setItem("key", JSON.stringify(this.tasks));
+            },
+
+            open() {
+                this.tasks = JSON.parse(localStorage.getItem("key")) || [];
+                console.log(this.tasks)
+            }
+
+        }
+
+        class TasksListView {
+            element;
+            dataService;
+
+            constructor(element) {
+                this.element = element;
+                dataService = dataService;
+            }
+
+            #drawList(tasksElements) {
+                this.element.innerHTML = "";
+
+                tasksElements.forEach(taskElement => {
+                    taskElement.createIn(this.element);
+                });
+            }
+
+            drawAll() {
+                let taskElements = [];
+                let tasks = dataService.allTasks;
+                if (tasks.length == 0) return;
+
+                tasks.forEach(task => {
+                    taskElements.push(new TaskView(task))
+                });
+                this.#drawList(taskElements);
+            }
+
+            drawNotCompleted() {
+                let taskElements = [];
+                let tasks = dataService.notCompletedTasks;
+                if (tasks.length == 0) return;
+
+                tasks.forEach(task => {
+                    taskElements.push(new TaskView(task))
+                });
+                this.#drawList(taskElements);
+            }
+        }
+
+        class TaskView {
+            constructor(task) {
+                this.task = task;
+                this.div = null;
+            }
+
+            createIn(element) {
+                this.div = document.createElement("div");
+                this.div.classList.add("task");
+
+                let input = document.createElement("input");
+                input.addEventListener("click", this.changeState.bind(this));
+                input.type = "checkbox";
+
+                // let button = document.createElement("button")
+                // button.addEventListener("click", () =>{
+                //     dataservice.removeTaskList();
+                // });
+
+                let button = document.createElement("button")
+                button.addEventListener("click", this.removeTaskList);
+                let buttonText = document.createTextNode("Удалить");                
+
+                let p = document.createElement("p");
+                p.innerText = this.task.text;
+
+                this.div.append(input);
+                this.div.append(p);
+                this.div.append(button);
+                button.append(buttonText);
+
+                if (this.task.isDone) {
+                    this.div.classList.add("completed");
+                    input.checked = true;
+                }
+                element.append(this.div);
+            }
+
+            changeState(element) {
+                this.task.isDone = !this.task.isDone;
+                dataService.save();
+                this.div.classList.toggle("completed");
+            }
+   
+            removeTaskList(e){
+                let p = document.querySelector("p")
+                console.log(p)
+//text - заданный нами type эл-та, инд кот мы находим в МАССИВЕ ОБЪЕКТОВ с помощью findIndex
+//e.target.closest('div') - ближайший родительский элемент (div class="task")
+//e.target...children[1].innerHTML - value input 1 индекса дочерн эл-та родительского div
+let removeIndexElem = dataService.tasks.findIndex(x => x.text === e.target.closest('div').children[1].innerHTML);
+// let removeIndexElem = dataService.tasks.findIndex(x => x.text === e.target.previousSibling.innerHTML);
+                // console.log(e.target.closest('div'))
+                console.log(removeIndexElem)
+                dataService.tasks.splice(removeIndexElem, 1);
+
+                dataService.save();
+
+                this.parentElement.remove();//Удаляем созданный див из строки задач
+                
+                // let selectedData=dataService.tasks[id];
+                // let element=e.target;
+                // console.log(selectedData);
+                // if(selectedData===element){
+                // dataService.tasks.splice(index, 1);
+                // dataService.save();
+                // }
+
+                
+                // let selectedData=dataService.tasks[id];
+                // const index = dataService.tasks.indexOf(selectedData);
+                // console.log(index);
+                // if (index != -1) {
+                //     dataService.tasks.splice(index, 1);
+                //     this.parentElement[index].remove();//Удаляем созданный див из строки задач
+                // }       
+                // dataService.save();
+            
+
+                // let selectedData=dataService.tasks[id];
+                // console.log(selectedData)
+                // let removeElemIndex = dataService.tasks.findIndex((i)=>{
+                //     return i.classList==='task' && selectedData.classList==='task'
+                // });
+            }
+        }
+
+        let taskNameInput = document.querySelector("#task-name-input");
+        let addTaskButton = document.querySelector("#add-task-btn");
+        let startMessage = document.querySelector("#start-message");
+        let showAllButton = document.querySelector("#show-all-btn");
+        let showNotCompletedButton = document.querySelector("#show-not-completed-btn");
+        let taskList = document.querySelector(".task-list");
+
+        dataService.open();
+        let tasksListView = new TasksListView(taskList);
+
+        addTaskButton.addEventListener("click", addTaskHandler);
+        showAllButton.addEventListener("click", showAllHandler);
+        showNotCompletedButton.addEventListener("click", showNotCompletedHandler);
+
+        window.addEventListener("load", function () {
+            tasksListView.drawAll();
+        });
+
+        taskNameInput.addEventListener("keydown", function (e) {
+            if (e.code == "Enter") addTaskHandler();
+        })
+
+        function addTaskHandler() {
+            if (taskNameInput.value) {
+                if (!startMessage.hidden) startMessage.hidden = true;
+
+                let newTask = new Task(taskNameInput.value);
+                dataService.add(newTask);
+                tasksListView.drawAll();
+
+                taskNameInput.value = "";
+            } else {
+                alert("введите имя задачи");
+            }
+        }
+
+        function showAllHandler() {
+            tasksListView.drawAll();
+        }
+
+        function showNotCompletedHandler() {
+            tasksListView.drawNotCompleted();
+        }
+    </script>
+</body>
+
+</html>

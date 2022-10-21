@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life шаблон модуль ПРИМЕР</title>
+</head>
+<body>
+    <script>
+        let calc = (function (val, vol) {
+    
+            return {
+                add: function () {//где add аналог getter
+                    return x + y;
+                },
+                setX: function () {
+                    x = val;
+                    y = vol;
+                },
+                // setY: function (vol) {
+                //     y = vol;
+                // }
+            }
+        }());
+
+        calc.setX(2, 3);
+        // calc.setY(3);
+
+        console.log(calc.add());
+    </script>
+</body>
+</html>

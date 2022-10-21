@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 05</title>
+
+    <style>
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .report-block {
+            border: 1px solid green;
+            background-color: #00800049;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        #output {
+            width: 200px;
+            height: 200px;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <button>Создать отчет</button>
+    <div id="output"></div>
+
+    <template id="monthReport">
+        <div class="report-block">
+            <p>месяц {{month}}</p>
+            <p>сумма {{amount}}</p>
+            <ul></ul>
+            {{#users}}
+            <!-- начало цикла для вывода массива users -->
+            <li>{{.}}</li> <!-- . - текущий элемент массива -->
+            {{/users}}
+            <!-- конец цикла -->
+            </ul>
+        </div>
+    </template>
+
+    <script src="mustache.min.js"></script>
+    <script>
+        /*
+Задание:
+Перепишите данный код с использованием классов.
+Создайте класс MonthReport со свойствами month, amount, users.
+Добавьте в класс метод render, который будет визуализировать содержимое класса на странице.
+Созд массив экземпляров класса MonthReport со знач-ми, которые сейчас находятся в массиве source.
+Пройдите циклом по массиву и на каждом экземпляре класса MonthReport вызовите метод render.
+        */
+
+        let source = [
+            {
+                month: "Январь",
+                amount: 20,
+                users: ["Claudia Contreras", "Blair Hayden", "Montgomery Cohen"]
+            },
+            {
+                month: "Февраль",
+                amount: 140
+            },
+            {
+                month: "Март",
+                amount: 115,
+                users: ["Blair Hayden", "Montgomery Cohen"]
+            }
+        ];
+        console.log(source)
+
+        let template = document.querySelector("#monthReport").innerHTML;
+        let output = document.querySelector("#output");
+        let button = document.querySelector("button")
+        
+
+        let array = [];
+        console.log(array);
+
+        button.addEventListener("click", ()=>{
+            for(let i=0; i<array.length; i++){
+            array[i].render()
+            // array[1].render()
+            // array[2].render()
+            }
+        })
+
+        class MonthReport {
+            constructor(month, amount, users) {
+                this.month = month;
+                this.amount = amount;
+                this.users = users;
+            }
+            render() {
+                let html=Mustache.render(template, this)
+                output.insertAdjacentHTML("beforeend", html)              
+            }
+        }
+
+        let render=new MonthReport("Январь", 20, ["Claudia Contreras", "Blair Hayden", "Montgomery Cohen"]);
+        array.push(new MonthReport("Февраль", 140));
+        array.push(new MonthReport("Март", 115, ["Blair Hayden", "Montgomery Cohen"]));
+        array.push(render)
+        console.log(render)
+
+        // for(let j=0; j<source.length; j++){
+        //    const sourceArray =source[j];
+        //    array.push(new MonthReport("Январь", 20, ["Claudia Contreras", "Blair Hayden", "Montgomery Cohen"]));
+        //    array.push(new MonthReport("Февраль", 140));
+        //    array.push(new MonthReport("Март", 115, ["Blair Hayden", "Montgomery Cohen"]));
+        // }
+
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+<!-- let array=[];
+console.log(array);
+
+class MonthReport{
+    constructor(month, amount, users){
+        this.month=month;
+        this.amount=amount;
+        this.users=users;
+    }
+    render(){
+            let data = {
+                month: "Январь",
+                amount: 20,
+                users: ["Claudia Contreras", "Blair Hayden", "Montgomery Cohen"]
+            };
+            let html = Mustache.render(template, data);
+            output.insertAdjacentHTML("beforeend", `<div>${html}<div>`);
+            array.push(html)
+            // return html
+        
+    }
+}
+
+for(let i = 0; i < source.length; i++) {
+    array.push(new MonthReport(source[i].month, source[i].amount, source[i].users));
+}
+
+let r1=new MonthReport()
+
+
+window.addEventListener('click', () => {
+    for (let i = 0; i < array.length; i++) {
+        array[i]
+    }
+    array[0].render();
+    console.log(1)
+    console.log(array[0].render);
+    console.log('asd');
+}) -->
